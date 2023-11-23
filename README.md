@@ -5,12 +5,12 @@ Implementing FirebaseAuth by Email and Password, and GoogleSignIn.
 ## For developers
 > To clone locally
 ```
-$ git clone 
-$ cd 
+$ git clone git@github.com:luciano01/fire_auth.git
+$ cd fire_auth
 ```
 > Open the project in an editor, if you use VS Code, follow this
 ```
-$ cd 
+$ cd fire_auth
 $ code .
 ```
 
