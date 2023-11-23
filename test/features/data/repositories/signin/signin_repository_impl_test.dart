@@ -20,22 +20,23 @@ void main() {
     mockUser = MockUser();
   });
 
-  test('Should return a User after Sign In by Email and Password.', () async {
-    const email = 'user@email.com';
-    const password = 'user123';
+  const mockEmail = 'user@email.com';
+  const mockPassword = 'user123';
 
+  test('Should return a User after Sign In by Email and Password.', () async {
     when(() => mockSignInDataSource.signInWithEmailAndPassword(
-        email: email, password: password)).thenAnswer((_) async => mockUser);
+        email: mockEmail,
+        password: mockPassword)).thenAnswer((_) async => mockUser);
 
     final user = await signInRepositoryImpl.signInWithEmailAndPassword(
-      email: email,
-      password: password,
+      email: mockEmail,
+      password: mockPassword,
     );
 
     expect(user, mockUser);
     verify(() => mockSignInDataSource.signInWithEmailAndPassword(
-          email: email,
-          password: password,
+          email: mockEmail,
+          password: mockPassword,
         ));
     verifyNoMoreInteractions(mockSignInDataSource);
   });
