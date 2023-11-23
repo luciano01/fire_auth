@@ -11,44 +11,42 @@ class MockUser extends Mock implements User {}
 void main() {
   late MockSignInRepository mockSignInRepository;
   late MockUser mockUser;
+  late SignInUseCaseImpl signInUseCaseImpl;
 
   setUp(() {
     mockSignInRepository = MockSignInRepository();
     mockUser = MockUser();
+    signInUseCaseImpl = SignInUseCaseImpl(
+      signInRepository: mockSignInRepository,
+    );
   });
 
-  const mockEmail = "user@email.com";
-  const mockPassword = "user123";
+  const mockEmail = 'user@email.com';
+  const mockPassword = 'user123';
 
-  test(
-      'Should return a Firebase User after Sign In by Email and Password from Repository.',
-      () async {
+  test('Return a User after Sign In by Email and Password.', () async {
     when(() => mockSignInRepository.signInWithEmailAndPassword(
-          email: mockEmail,
-          password: mockPassword,
-        )).thenAnswer((_) async => mockUser);
+        email: mockEmail,
+        password: mockPassword)).thenAnswer((_) async => mockUser);
 
-    final user = await mockSignInRepository.signInWithEmailAndPassword(
+    final result = await signInUseCaseImpl.signInWithEmailAndPassword(
       email: mockEmail,
       password: mockPassword,
     );
 
-    expect(user, mockUser);
+    expect(result, mockUser);
     verify(() => mockSignInRepository.signInWithEmailAndPassword(
           email: mockEmail,
           password: mockPassword,
         ));
   });
 
-  test(
-      'Should return a Firebase User after Sign In by GoogleSignIn from Repository.',
-      () async {
+  test('Return a User after Sign In by GoogleSignIn.', () async {
     when(() => mockSignInRepository.googleSignIn())
         .thenAnswer((_) async => mockUser);
+    final result = await signInUseCaseImpl.googleSignIn();
 
-    final user = await mockSignInRepository.googleSignIn();
-
-    expect(user, mockUser);
+    expect(result, mockUser);
     verify(() => mockSignInRepository.googleSignIn());
   });
 }

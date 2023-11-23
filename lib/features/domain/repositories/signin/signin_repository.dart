@@ -6,4 +6,7 @@ abstract class SignInRepository {
     required String email,
     required String password,
   });
+
+  /// Return a User after Sign In by GoogleSignIn.
+  Future<User> googleSignIn();
 }

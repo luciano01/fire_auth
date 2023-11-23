@@ -11,12 +11,12 @@ class MockUser extends Mock implements User {}
 void main() {
   late MockCurrentUserRepository mockCurrentUserRepository;
   late MockUser mockUser;
-  late CurrentUserUsecaseImpl currentUserUsecaseImpl;
+  late CurrentUserUseCaseImpl currentUserUsecaseImpl;
 
   setUp(() {
     mockCurrentUserRepository = MockCurrentUserRepository();
     mockUser = MockUser();
-    currentUserUsecaseImpl = CurrentUserUsecaseImpl(
+    currentUserUsecaseImpl = CurrentUserUseCaseImpl(
       currentUserRepository: mockCurrentUserRepository,
     );
   });

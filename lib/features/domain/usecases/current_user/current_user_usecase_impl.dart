@@ -2,15 +2,15 @@ import 'package:firebase_auth/firebase_auth.dart';
 
 import '../../domain.dart';
 
-abstract class CurrentUserUsecase {
+abstract class CurrentUserUseCase {
   /// Return a Current Logged Firebase User.
   Future<User?> currentUser();
 }
 
-class CurrentUserUsecaseImpl implements CurrentUserUsecase {
+class CurrentUserUseCaseImpl implements CurrentUserUseCase {
   final CurrentUserRepository _currentUserRepository;
 
-  CurrentUserUsecaseImpl({required CurrentUserRepository currentUserRepository})
+  CurrentUserUseCaseImpl({required CurrentUserRepository currentUserRepository})
       : _currentUserRepository = currentUserRepository;
 
   @override
