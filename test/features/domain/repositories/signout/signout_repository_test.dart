@@ -12,7 +12,7 @@ void main() {
     mockSignOutRepository = MockSignOutRepository();
   });
 
-  test('Shoudl disconnect the user from Firebase Auth', () async {
+  test('Shoudl disconnect the user from Firebase Auth.', () async {
     when(() => mockSignOutRepository.signOut())
         .thenAnswer((_) => Future.value(null));
 

@@ -17,7 +17,7 @@ void main() {
     mockUser = MockUser();
   });
 
-  test('Should return an User from Firebase Auth', () async {
+  test('Should return an User from Firebase Auth.', () async {
     when(() => mockSignOutRepository.currentUser())
         .thenAnswer((_) async => mockUser);
 
