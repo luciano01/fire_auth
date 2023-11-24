@@ -33,6 +33,7 @@ dev_dependencies:
 
   mobx_codegen: ^2.3.0
   build_runner: ^2.4.6
+  # flutter packages pub run build_runner build
 
   mocktail: ^1.0.0
 
