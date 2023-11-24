@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
 import '../../../features/data/data.dart';
@@ -10,27 +11,27 @@ class LaunchInjections extends Module {
     /// DataSources injections.
     i.add<CurrentUserDataSource>(
       () => CurrentUserDataSourceImpl(
-        firebaseAuth: i.get(),
+        firebaseAuth: i.get<FirebaseAuth>(),
       ),
     );
 
     /// Repositories injections.
     i.add<CurrentUserRepository>(
       () => CurrentUserRepositoryImpl(
-        currentUserDataSource: i.get(),
+        currentUserDataSource: i.get<CurrentUserDataSource>(),
       ),
     );
 
     /// UseCases injections.
     i.add<CurrentUserUseCase>(
       () => CurrentUserUseCaseImpl(
-        currentUserRepository: i.get(),
+        currentUserRepository: i.get<CurrentUserRepository>(),
       ),
     );
 
     /// Stores injections.
     i.add<LaunchStore>(
-      () => LaunchStore(),
+      () => LaunchStore(currentUserUseCase: i.get<CurrentUserUseCase>()),
     );
   }
 
