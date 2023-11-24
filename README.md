@@ -1,4 +1,4 @@
-# Firebase Authentication
+# Fire Auth
 
 Implementing FirebaseAuth by Email and Password, and GoogleSignIn.
 
