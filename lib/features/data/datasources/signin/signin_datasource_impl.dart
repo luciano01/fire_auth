@@ -1,6 +1,8 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
+import '../../../../core/core.dart';
+
 abstract class SignInDataSource {
   /// Return a User after Sign In by Email and Password.
   Future<User?> signInWithEmailAndPassword({
@@ -27,15 +29,19 @@ class SignInDataSourceImpl implements SignInDataSource {
     required String email,
     required String password,
   }) async {
-    final userCredential = await _firebaseAuth.signInWithEmailAndPassword(
-      email: email,
-      password: password,
-    );
+    try {
+      final userCredential = await _firebaseAuth.signInWithEmailAndPassword(
+        email: email,
+        password: password,
+      );
 
-    if (userCredential.user != null) {
-      return userCredential.user;
-    } else {
-      return null;
+      if (userCredential.user != null) {
+        return userCredential.user;
+      } else {
+        return null;
+      }
+    } on FirebaseAuthException catch (error) {
+      throw ServerException(message: error.message ?? "");
     }
   }
 
