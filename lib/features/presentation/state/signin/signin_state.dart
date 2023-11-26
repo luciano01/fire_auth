@@ -39,12 +39,16 @@ abstract class SignInState with Store {
     required String email,
     required String password,
   }) async {
-    await _authStore
-        .createUserWithEmailAndPassword(email: email, password: password)
-        .then((user) async {
-      if (user != null) {
-        Modular.to.pushReplacementNamed('/home/');
-      }
-    });
+    try {
+      await _authStore
+          .createUserWithEmailAndPassword(email: email, password: password)
+          .then((user) async {
+        if (user != null) {
+          Modular.to.pushReplacementNamed('/home/');
+        }
+      });
+    } on ServerException catch (error) {
+      errorMessage = error.message;
+    }
   }
 }

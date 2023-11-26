@@ -1,5 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 
+import '../../../../core/core.dart';
+
 abstract class SignUpDataSource {
   /// Create an Account by Email and Password, and return a Firebase User.
   Future<User?> createUserWithEmailAndPassword({
@@ -19,15 +21,19 @@ class SignUpDataSourceImpl implements SignUpDataSource {
     required String email,
     required String password,
   }) async {
-    final userCredential = await _firebaseAuth.createUserWithEmailAndPassword(
-      email: email,
-      password: password,
-    );
+    try {
+      final userCredential = await _firebaseAuth.createUserWithEmailAndPassword(
+        email: email,
+        password: password,
+      );
 
-    if (userCredential.user != null) {
-      return userCredential.user;
-    } else {
-      return null;
+      if (userCredential.user != null) {
+        return userCredential.user;
+      } else {
+        return null;
+      }
+    } on FirebaseAuthException catch (error) {
+      throw ServerException(message: error.message ?? "");
     }
   }
 }

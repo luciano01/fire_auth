@@ -31,7 +31,7 @@ class SignInPage extends StatelessWidget {
               child: const Text("SignUp"),
               onPressed: () {
                 signInStore.createUserWithEmailAndPassword(
-                  email: "guldan@email.com",
+                  email: "guldanemail.com",
                   password: "guldan123",
                 );
               },

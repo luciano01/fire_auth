@@ -47,17 +47,21 @@ class SignInDataSourceImpl implements SignInDataSource {
 
   @override
   Future<User> googleSignIn() async {
-    final googleUser = await _googleSignIn.signIn();
+    try {
+      final googleUser = await _googleSignIn.signIn();
 
-    final googleAuth = await googleUser!.authentication;
+      final googleAuth = await googleUser!.authentication;
 
-    final credential = GoogleAuthProvider.credential(
-      accessToken: googleAuth.accessToken,
-      idToken: googleAuth.idToken,
-    );
+      final credential = GoogleAuthProvider.credential(
+        accessToken: googleAuth.accessToken,
+        idToken: googleAuth.idToken,
+      );
 
-    final user = (await _firebaseAuth.signInWithCredential(credential)).user;
+      final user = (await _firebaseAuth.signInWithCredential(credential)).user;
 
-    return user!;
+      return user!;
+    } on FirebaseAuthException catch (error) {
+      throw ServerException(message: error.message ?? "");
+    }
   }
 }
