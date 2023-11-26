@@ -32,7 +32,7 @@ class HomeInjections extends Module {
     /// Stores injections.
     i.add<HomeStore>(
       () => HomeStore(
-        appStore: i.get<AppStore>(),
+        appStore: i.get<AuthStore>(),
       ),
     );
   }

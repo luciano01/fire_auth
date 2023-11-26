@@ -9,9 +9,9 @@ part 'signin_state.g.dart';
 class SignInStore = SignInState with _$SignInStore;
 
 abstract class SignInState with Store {
-  final AppStore _appStore;
+  final AuthStore _authStore;
 
-  SignInState({required AppStore appStore}) : _appStore = appStore;
+  SignInState({required AuthStore appStore}) : _authStore = appStore;
 
   @observable
   String errorMessage = "";
@@ -23,7 +23,7 @@ abstract class SignInState with Store {
     required String password,
   }) async {
     try {
-      await _appStore
+      await _authStore
           .signInWithEmailAndPassword(email: email, password: password)
           .then((user) {
         if (user != null) {}
@@ -39,7 +39,7 @@ abstract class SignInState with Store {
     required String email,
     required String password,
   }) async {
-    await _appStore
+    await _authStore
         .createUserWithEmailAndPassword(email: email, password: password)
         .then((user) async {
       if (user != null) {

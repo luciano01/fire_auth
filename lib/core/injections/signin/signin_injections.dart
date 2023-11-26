@@ -8,7 +8,7 @@ class SignInInjections extends Module {
     /// Stores injections.
     i.add<SignInStore>(
       () => SignInStore(
-        appStore: i.get<AppStore>(),
+        appStore: i.get<AuthStore>(),
       ),
     );
   }

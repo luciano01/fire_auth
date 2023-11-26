@@ -7,6 +7,7 @@ class AppWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp.router(
+      debugShowCheckedModeBanner: false,
       title: 'Firebase Authentication',
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(

@@ -8,21 +8,21 @@ part 'home_state.g.dart';
 class HomeStore = HomeState with _$HomeStore;
 
 abstract class HomeState with Store {
-  final AppStore _appStore;
+  final AuthStore _authStore;
 
-  HomeState({required AppStore appStore}) : _appStore = appStore;
+  HomeState({required AuthStore appStore}) : _authStore = appStore;
 
   String get userEmail {
-    return _appStore.user?.email ?? "";
+    return _authStore.user?.email ?? "";
   }
 
   String get userUid {
-    return _appStore.user?.uid ?? "";
+    return _authStore.user?.uid ?? "";
   }
 
   /// Disconnect user from Firebase Auth.
   void signOut() async {
-    await _appStore.signOut().then((_) {
+    await _authStore.signOut().then((_) {
       Modular.to.pushReplacementNamed('/signin/');
     });
   }

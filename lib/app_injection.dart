@@ -93,8 +93,8 @@ class AppInjections extends Module {
     );
 
     /// Stores Injections.
-    i.add<AppStore>(
-      () => AppStore(
+    i.add<AuthStore>(
+      () => AuthStore(
         currentUserUseCase: i.get<CurrentUserUseCase>(),
         signInUseCase: i.get<SignInUseCase>(),
         signOutUsecase: i.get<SignOutUsecase>(),

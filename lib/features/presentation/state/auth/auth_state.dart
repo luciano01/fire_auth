@@ -3,17 +3,17 @@ import 'package:mobx/mobx.dart';
 
 import '../../../domain/domain.dart';
 
-part 'app_state.g.dart';
+part 'auth_state.g.dart';
 
-class AppStore = AppState with _$AppStore;
+class AuthStore = AuthState with _$AuthStore;
 
-abstract class AppState with Store {
+abstract class AuthState with Store {
   final CurrentUserUseCase _currentUserUseCase;
   final SignInUseCase _signInUseCase;
   final SignOutUsecase _signOutUsecase;
   final SignUpUsecase _signUpUsecase;
 
-  AppState({
+  AuthState({
     required CurrentUserUseCase currentUserUseCase,
     required SignInUseCase signInUseCase,
     required SignOutUsecase signOutUsecase,
@@ -28,9 +28,13 @@ abstract class AppState with Store {
   @observable
   User? user;
 
+  @observable
+  bool isLogged = false;
+
   @action
   setUser(User? value) {
     user = value;
+    isLogged = value != null;
   }
 
   /// Return a User after Sign In by Email and Password.

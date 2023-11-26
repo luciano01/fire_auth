@@ -7,9 +7,9 @@ part 'launch_state.g.dart';
 class LaunchStore = LaunchState with _$LaunchStore;
 
 abstract class LaunchState with Store {
-  final AppStore _appStore;
+  final AuthStore _authStore;
 
-  LaunchState({required AppStore appStore}) : _appStore = appStore {
+  LaunchState({required AuthStore appStore}) : _authStore = appStore {
     checkIfUserIsLogged();
   }
 
@@ -17,8 +17,8 @@ abstract class LaunchState with Store {
   /// If is true, go to HomePage
   /// If is false, fo to SignIn
   void checkIfUserIsLogged() {
-    Future.delayed(const Duration(seconds: 1)).then((value) {
-      if (_appStore.user != null) {
+    Future.delayed(const Duration(seconds: 3)).then((value) {
+      if (_authStore.isLogged) {
         Modular.to.pushReplacementNamed('/home/');
       } else {
         Modular.to.pushReplacementNamed('/signin/');

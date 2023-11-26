@@ -8,7 +8,7 @@ class LaunchInjections extends Module {
     /// Stores injections.
     i.add<LaunchStore>(
       () => LaunchStore(
-        appStore: i.get<AppStore>(),
+        appStore: i.get<AuthStore>(),
       ),
     );
   }

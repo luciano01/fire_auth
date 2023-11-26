@@ -8,12 +8,11 @@ class LaunchPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final launchHome = Modular.get<LaunchStore>();
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Launch'),
+    Modular.get<LaunchStore>();
+    return const Scaffold(
+      body: Center(
+        child: CircularProgressIndicator(),
       ),
-      body: Container(),
     );
   }
 }
