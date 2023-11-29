@@ -28,85 +28,59 @@ class SignInPage extends StatelessWidget {
       body: ListView(
         physics: const BouncingScrollPhysics(),
         padding: const EdgeInsets.symmetric(
-          horizontal: 16,
+          horizontal: 32,
           vertical: 16,
         ),
         children: [
-          const SizedBox(
-            height: 300,
-            child: FlutterLogo(),
+          const SizedBox(height: 250),
+          const TextField(
+            decoration: InputDecoration(
+              contentPadding: EdgeInsets.symmetric(
+                vertical: 20,
+              ),
+              labelText: "Email",
+            ),
           ),
           Padding(
             padding: const EdgeInsets.symmetric(
               vertical: 16,
-            ).copyWith(top: 16),
+            ),
             child: TextField(
               decoration: InputDecoration(
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(12),
+                contentPadding: const EdgeInsets.symmetric(
+                  vertical: 20,
                 ),
-                prefixIcon: const Icon(Icons.email_outlined),
-                labelText: "Email",
+                labelText: "Password",
+                suffixIcon: IconButton(
+                  icon: const Icon(
+                    Icons.visibility_off,
+                  ),
+                  onPressed: () {},
+                ),
               ),
-            ),
-          ),
-          TextField(
-            decoration: InputDecoration(
-              border: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(12),
-              ),
-              prefixIcon: const Icon(Icons.password_outlined),
-              suffixIcon: IconButton(
-                icon: const Icon(Icons.visibility_off_outlined),
-                onPressed: () {},
-              ),
-              labelText: "Password",
+              obscureText: true,
             ),
           ),
           Padding(
-            padding: const EdgeInsets.symmetric(
-              vertical: 16,
-            ).copyWith(bottom: 32),
+            padding: const EdgeInsets.only(
+              top: 16,
+            ),
             child: ElevatedButton(
               style: ButtonStyle(
                 fixedSize: MaterialStateProperty.all<Size>(
-                  const Size(double.infinity, 56),
-                ),
-                shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                  RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(12),
-                  ),
+                  const Size(double.infinity, 48),
                 ),
               ),
-              child: const Text("Continue"),
+              child: const Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text("Continue"),
+                  SizedBox(width: 10),
+                  Icon(Icons.arrow_forward),
+                ],
+              ),
               onPressed: () {},
             ),
-          ),
-          OutlinedButton(
-            style: ButtonStyle(
-              fixedSize: MaterialStateProperty.all<Size>(
-                const Size(double.infinity, 56),
-              ),
-              side: MaterialStateProperty.all<BorderSide>(
-                BorderSide(
-                  color: Colors.grey.shade300,
-                ),
-              ),
-              shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(12),
-                ),
-              ),
-            ),
-            child: const Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                FlutterLogo(size: 25),
-                SizedBox(width: 10),
-                Text("Sign in with Google"),
-              ],
-            ),
-            onPressed: () {},
           ),
         ],
       ),
