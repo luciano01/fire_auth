@@ -1,21 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
-import '../../presentation.dart';
-
-class SignInPage extends StatelessWidget {
-  const SignInPage({super.key});
+class SignUpPage extends StatelessWidget {
+  const SignUpPage({super.key});
 
   @override
   Widget build(BuildContext context) {
-    Modular.get<SignInStore>();
     return Scaffold(
       backgroundColor: Colors.grey.shade50,
       appBar: AppBar(
         backgroundColor: Colors.grey.shade50,
         centerTitle: true,
         title: Text(
-          "Sign in",
+          "Sign up",
           style: Theme.of(context).textTheme.bodyLarge?.copyWith(
                 color: Colors.grey.shade900,
                 fontWeight: FontWeight.bold,
@@ -29,7 +26,7 @@ class SignInPage extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Text(
-                "Don't have an account?",
+                "Already have an account?",
                 style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                       color: Colors.grey.shade900,
                       fontWeight: FontWeight.w300,
@@ -37,13 +34,13 @@ class SignInPage extends StatelessWidget {
               ),
               TextButton(
                 child: Text(
-                  "Sign up now!",
+                  "Sign in!",
                   style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                         color: Colors.grey.shade900,
                         fontWeight: FontWeight.bold,
                       ),
                 ),
-                onPressed: () => Modular.to.pushNamed("/signup/"),
+                onPressed: () => Modular.to.pop(),
               ),
             ],
           ),
@@ -145,9 +142,55 @@ class SignInPage extends StatelessWidget {
               onChanged: (value) {},
             ),
           ),
+          TextFormField(
+            keyboardType: TextInputType.visiblePassword,
+            cursorColor: Colors.deepPurple.shade900,
+            style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                  fontWeight: FontWeight.normal,
+                  fontStyle: FontStyle.normal,
+                  color: Colors.grey.shade900,
+                ),
+            decoration: InputDecoration(
+              border: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(8),
+              ),
+              enabledBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(8),
+                borderSide: const BorderSide(
+                  color: Colors.transparent,
+                ),
+              ),
+              focusedBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(8),
+                borderSide: BorderSide(
+                  color: Colors.deepPurple.shade900,
+                ),
+              ),
+              filled: true,
+              fillColor: Colors.grey.shade200,
+              prefixIcon: Icon(
+                Icons.password_outlined,
+                color: Colors.grey.shade600,
+              ),
+              suffixIcon: IconButton(
+                onPressed: () {},
+                icon: Icon(
+                  Icons.visibility_off_outlined,
+                  color: Colors.grey.shade600,
+                ),
+              ),
+              hintText: 'Repeat Password',
+              hintStyle: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                    fontWeight: FontWeight.normal,
+                    color: Colors.grey.shade600,
+                  ),
+            ),
+            obscureText: true,
+            onChanged: (value) {},
+          ),
           Padding(
             padding: const EdgeInsets.symmetric(
-              vertical: 16,
+              vertical: 32,
             ),
             child: ElevatedButton(
               style: ButtonStyle(

@@ -107,6 +107,7 @@ class AppInjections extends Module {
   void routes(RouteManager r) {
     r.module("/", module: LaunchInjections());
     r.module("/signin/", module: SignInInjections());
+    r.module("/signup/", module: SignUpInjections());
     r.module("/home/", module: HomeInjections());
   }
 }
