@@ -10,16 +10,40 @@ class SignInPage extends StatelessWidget {
   Widget build(BuildContext context) {
     Modular.get<SignInStore>();
     return Scaffold(
+      backgroundColor: Colors.grey.shade50,
+      appBar: AppBar(
+        backgroundColor: Colors.grey.shade50,
+        centerTitle: true,
+        title: Text(
+          "Sign in",
+          style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                color: Colors.grey.shade900,
+                fontWeight: FontWeight.bold,
+              ),
+        ),
+      ),
       bottomNavigationBar: SizedBox(
         height: 56,
         child: Center(
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              const Text("Don't have an account?"),
+              Text(
+                "Don't have an account?",
+                style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                      color: Colors.grey.shade900,
+                      fontWeight: FontWeight.w300,
+                    ),
+              ),
               TextButton(
-                child: const Text("Sign up now!"),
-                onPressed: () => Modular.to.pushNamed("/signup/"),
+                child: Text(
+                  "Sign up now!",
+                  style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                        color: Colors.grey.shade900,
+                        fontWeight: FontWeight.bold,
+                      ),
+                ),
+                onPressed: () {},
               ),
             ],
           ),
@@ -28,59 +52,202 @@ class SignInPage extends StatelessWidget {
       body: ListView(
         physics: const BouncingScrollPhysics(),
         padding: const EdgeInsets.symmetric(
-          horizontal: 32,
+          horizontal: 16,
           vertical: 16,
         ),
         children: [
-          const SizedBox(height: 250),
-          const TextField(
+          TextFormField(
+            keyboardType: TextInputType.emailAddress,
+            cursorColor: Colors.deepPurple.shade900,
+            style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                  fontWeight: FontWeight.normal,
+                  fontStyle: FontStyle.normal,
+                  color: Colors.grey.shade900,
+                ),
             decoration: InputDecoration(
-              contentPadding: EdgeInsets.symmetric(
-                vertical: 20,
+              border: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(8),
               ),
-              labelText: "Email",
+              enabledBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(8),
+                borderSide: const BorderSide(
+                  color: Colors.transparent,
+                ),
+              ),
+              focusedBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(8),
+                borderSide: BorderSide(
+                  color: Colors.deepPurple.shade900,
+                ),
+              ),
+              filled: true,
+              fillColor: Colors.grey.shade200,
+              prefixIcon: Icon(
+                Icons.email_outlined,
+                color: Colors.grey.shade600,
+              ),
+              hintText: 'Email',
+              hintStyle: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                    fontWeight: FontWeight.normal,
+                    color: Colors.grey.shade600,
+                  ),
+            ),
+            onChanged: (value) {},
+          ),
+          Padding(
+            padding: const EdgeInsets.symmetric(
+              vertical: 16,
+            ),
+            child: TextFormField(
+              keyboardType: TextInputType.visiblePassword,
+              cursorColor: Colors.deepPurple.shade900,
+              style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                    fontWeight: FontWeight.normal,
+                    fontStyle: FontStyle.normal,
+                    color: Colors.grey.shade900,
+                  ),
+              decoration: InputDecoration(
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(8),
+                ),
+                enabledBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(8),
+                  borderSide: const BorderSide(
+                    color: Colors.transparent,
+                  ),
+                ),
+                focusedBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(8),
+                  borderSide: BorderSide(
+                    color: Colors.deepPurple.shade900,
+                  ),
+                ),
+                filled: true,
+                fillColor: Colors.grey.shade200,
+                prefixIcon: Icon(
+                  Icons.password_outlined,
+                  color: Colors.grey.shade600,
+                ),
+                suffixIcon: IconButton(
+                  onPressed: () {},
+                  icon: Icon(
+                    Icons.visibility_off_outlined,
+                    color: Colors.grey.shade600,
+                  ),
+                ),
+                hintText: 'Password',
+                hintStyle: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                      fontWeight: FontWeight.normal,
+                      color: Colors.grey.shade600,
+                    ),
+              ),
+              obscureText: true,
+              onChanged: (value) {},
             ),
           ),
           Padding(
             padding: const EdgeInsets.symmetric(
               vertical: 16,
             ),
-            child: TextField(
-              decoration: InputDecoration(
-                contentPadding: const EdgeInsets.symmetric(
-                  vertical: 20,
-                ),
-                labelText: "Password",
-                suffixIcon: IconButton(
-                  icon: const Icon(
-                    Icons.visibility_off,
-                  ),
-                  onPressed: () {},
-                ),
-              ),
-              obscureText: true,
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.only(
-              top: 16,
-            ),
             child: ElevatedButton(
               style: ButtonStyle(
+                backgroundColor: MaterialStateProperty.resolveWith<Color>(
+                  (Set<MaterialState> states) {
+                    if (states.contains(MaterialState.pressed)) {
+                      return Colors.deepPurple.shade200;
+                    } else if (states.contains(MaterialState.disabled)) {
+                      return Colors.grey.shade400;
+                    }
+                    return Colors.deepPurple.shade200;
+                  },
+                ),
+                shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                  RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(8),
+                  ),
+                ),
                 fixedSize: MaterialStateProperty.all<Size>(
                   const Size(double.infinity, 48),
                 ),
               ),
-              child: const Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text("Continue"),
-                  SizedBox(width: 10),
-                  Icon(Icons.arrow_forward),
-                ],
+              child: Text(
+                "Continue",
+                style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                      fontWeight: FontWeight.normal,
+                      color: Colors.grey.shade900,
+                    ),
               ),
               onPressed: () {},
             ),
+          ),
+          Padding(
+            padding: const EdgeInsets.symmetric(
+              vertical: 16,
+            ).copyWith(top: 32),
+            child: IntrinsicHeight(
+              child: Row(
+                children: [
+                  Expanded(
+                    child: Divider(
+                      thickness: 0.5,
+                      color: Colors.grey.shade400,
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 16,
+                    ),
+                    child: Text(
+                      "Or continue with",
+                      style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                            fontWeight: FontWeight.normal,
+                            color: Colors.grey.shade600,
+                          ),
+                    ),
+                  ),
+                  Expanded(
+                    child: Divider(
+                      thickness: 0.5,
+                      color: Colors.grey.shade400,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+          OutlinedButton(
+            style: ButtonStyle(
+              shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(8),
+                ),
+              ),
+              side: MaterialStateProperty.all<BorderSide>(
+                BorderSide(
+                  color: Colors.grey.shade400,
+                ),
+              ),
+              fixedSize: MaterialStateProperty.all<Size>(
+                const Size(double.infinity, 48),
+              ),
+            ),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Image.asset(
+                  "lib/core/assets/googleg.png",
+                  width: 35,
+                ),
+                Text(
+                  "Sign in with Google",
+                  style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                        fontWeight: FontWeight.normal,
+                        color: Colors.grey.shade900,
+                      ),
+                ),
+              ],
+            ),
+            onPressed: () {},
           ),
         ],
       ),
