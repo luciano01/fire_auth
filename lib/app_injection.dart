@@ -105,9 +105,25 @@ class AppInjections extends Module {
 
   @override
   void routes(RouteManager r) {
-    r.module("/", module: LaunchInjections());
-    r.module("/signin/", module: SignInInjections());
-    r.module("/signup/", module: SignUpInjections());
-    r.module("/home/", module: HomeInjections());
+    r.module(
+      "/",
+      module: LaunchInjections(),
+      transition: TransitionType.fadeIn,
+    );
+    r.module(
+      "/signin/",
+      module: SignInInjections(),
+      transition: TransitionType.rightToLeft,
+    );
+    r.module(
+      "/signup/",
+      module: SignUpInjections(),
+      transition: TransitionType.rightToLeft,
+    );
+    r.module(
+      "/home/",
+      module: HomeInjections(),
+      transition: TransitionType.rightToLeft,
+    );
   }
 }
