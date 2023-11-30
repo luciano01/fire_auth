@@ -31,24 +31,8 @@ abstract class SignInState with Store {
       });
     } on ServerException catch (error) {
       errorMessage = error.message;
-    }
-  }
-
-  /// Disconnect user from Firebase Auth.
-  void createUserWithEmailAndPassword({
-    required String email,
-    required String password,
-  }) async {
-    try {
-      await _authStore
-          .createUserWithEmailAndPassword(email: email, password: password)
-          .then((user) async {
-        if (user != null) {
-          Modular.to.pushReplacementNamed('/home/');
-        }
-      });
-    } on ServerException catch (error) {
-      errorMessage = error.message;
+    } finally {
+      errorMessage = "";
     }
   }
 }
