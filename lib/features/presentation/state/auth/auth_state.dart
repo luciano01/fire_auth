@@ -74,4 +74,11 @@ abstract class AuthState with Store {
       user = null;
     });
   }
+
+  /// Disconnect user from GoogleSignIn.
+  Future disconnect() async {
+    await _signOutUsecase.disconnect().whenComplete(() {
+      user = null;
+    });
+  }
 }

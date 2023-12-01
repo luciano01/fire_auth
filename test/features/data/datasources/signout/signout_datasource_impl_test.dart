@@ -23,16 +23,21 @@ void main() {
     );
   });
 
-  test('Should disconnect user from Firebase Auth and GoogleSignIn.', () async {
+  test('Should disconnect user from Firebase Auth.', () async {
     when(() => mockFirebaseAuth.signOut())
-        .thenAnswer((_) => Future.value(null));
-
-    when(() => mockGoogleSignIn.disconnect())
         .thenAnswer((_) => Future.value(null));
 
     await signOutDataSourceImpl.signOut();
 
     verify(() => mockFirebaseAuth.signOut());
+  });
+
+  test('Should disconnect user from GoogleSignIn.', () async {
+    when(() => mockGoogleSignIn.disconnect())
+        .thenAnswer((_) => Future.value(null));
+
+    await signOutDataSourceImpl.disconnect();
+
     verify(() => mockGoogleSignIn.disconnect());
   });
 }

@@ -8,6 +8,11 @@ class SignOutRepositoryImpl implements SignOutRepository {
       : _signOutDataSource = signOutDataSource;
   @override
   Future<void> signOut() async {
-    return await _signOutDataSource.signOut();
+    await _signOutDataSource.signOut();
+  }
+
+  @override
+  Future<void> disconnect() async {
+    await _signOutDataSource.disconnect();
   }
 }

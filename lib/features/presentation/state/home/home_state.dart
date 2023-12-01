@@ -1,4 +1,3 @@
-import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mobx/mobx.dart';
 
 import '../../presentation.dart';
@@ -22,8 +21,11 @@ abstract class HomeState with Store {
 
   /// Disconnect user from Firebase Auth.
   void signOut() async {
-    await _authStore.signOut().then((_) {
-      Modular.to.pushReplacementNamed('/signin/');
-    });
+    await _authStore.signOut();
+  }
+
+  /// Disconnect user from GoogleSignIn.
+  void disconnect() async {
+    await _authStore.disconnect();
   }
 }

@@ -32,19 +32,35 @@ mixin _$SignInStore on SignInState, Store {
     });
   }
 
-  late final _$isLoadingAtom =
-      Atom(name: 'SignInState.isLoading', context: context);
+  late final _$isLoadingByEmailAtom =
+      Atom(name: 'SignInState.isLoadingByEmail', context: context);
 
   @override
-  bool get isLoading {
-    _$isLoadingAtom.reportRead();
-    return super.isLoading;
+  bool get isLoadingByEmail {
+    _$isLoadingByEmailAtom.reportRead();
+    return super.isLoadingByEmail;
   }
 
   @override
-  set isLoading(bool value) {
-    _$isLoadingAtom.reportWrite(value, super.isLoading, () {
-      super.isLoading = value;
+  set isLoadingByEmail(bool value) {
+    _$isLoadingByEmailAtom.reportWrite(value, super.isLoadingByEmail, () {
+      super.isLoadingByEmail = value;
+    });
+  }
+
+  late final _$isLoadingByGoogleAtom =
+      Atom(name: 'SignInState.isLoadingByGoogle', context: context);
+
+  @override
+  bool get isLoadingByGoogle {
+    _$isLoadingByGoogleAtom.reportRead();
+    return super.isLoadingByGoogle;
+  }
+
+  @override
+  set isLoadingByGoogle(bool value) {
+    _$isLoadingByGoogleAtom.reportWrite(value, super.isLoadingByGoogle, () {
+      super.isLoadingByGoogle = value;
     });
   }
 
@@ -145,7 +161,8 @@ mixin _$SignInStore on SignInState, Store {
   String toString() {
     return '''
 errorMessage: ${errorMessage},
-isLoading: ${isLoading},
+isLoadingByEmail: ${isLoadingByEmail},
+isLoadingByGoogle: ${isLoadingByGoogle},
 isShowPassword: ${isShowPassword},
 email: ${email},
 password: ${password},

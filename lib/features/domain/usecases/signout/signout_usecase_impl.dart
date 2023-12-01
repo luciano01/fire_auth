@@ -3,6 +3,9 @@ import '../../domain.dart';
 abstract class SignOutUsecase {
   /// Disconnect user from Firebase Auth.
   Future<void> signOut();
+
+  /// Disconnect user from GoogleSignIn.
+  Future<void> disconnect();
 }
 
 class SignOutUsecaseImpl implements SignOutUsecase {
@@ -13,6 +16,11 @@ class SignOutUsecaseImpl implements SignOutUsecase {
 
   @override
   Future<void> signOut() async {
-    return await _signOutRepository.signOut();
+    await _signOutRepository.signOut();
+  }
+
+  @override
+  Future<void> disconnect() async {
+    await _signOutRepository.disconnect();
   }
 }

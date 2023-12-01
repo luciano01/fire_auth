@@ -239,7 +239,7 @@ class _SignInPageState extends State<SignInPage> {
                     : null,
                 child: Observer(builder: (_) {
                   return Visibility(
-                    visible: !signInStore.isLoading,
+                    visible: !signInStore.isLoadingByEmail,
                     replacement: const Center(
                       child: CircularProgressIndicator(),
                     ),
@@ -306,22 +306,30 @@ class _SignInPageState extends State<SignInPage> {
                 const Size(double.infinity, 48),
               ),
             ),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Image.asset(
-                  "lib/core/assets/googleg.png",
-                  width: 35,
+            child: Observer(builder: (_) {
+              return Visibility(
+                visible: !signInStore.isLoadingByGoogle,
+                replacement: const Center(
+                  child: CircularProgressIndicator(),
                 ),
-                Text(
-                  "Sign in with Google",
-                  style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                        fontWeight: FontWeight.normal,
-                        color: Colors.grey.shade900,
-                      ),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Image.asset(
+                      "lib/core/assets/googleg.png",
+                      width: 35,
+                    ),
+                    Text(
+                      "Sign in with Google",
+                      style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                            fontWeight: FontWeight.normal,
+                            color: Colors.grey.shade900,
+                          ),
+                    ),
+                  ],
                 ),
-              ],
-            ),
+              );
+            }),
             onPressed: () {
               signInStore.signWithGoogleLogin();
             },

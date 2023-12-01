@@ -24,4 +24,14 @@ void main() {
     verify(() => mockSignOutRepository.signOut());
     verifyNoMoreInteractions(mockSignOutRepository);
   });
+
+  test('Disconnect user from GoogleSignIn.', () async {
+    when(() => mockSignOutRepository.disconnect())
+        .thenAnswer((async) async => Future.value(null));
+
+    await signOutUsecaseImpl.disconnect();
+
+    verify(() => mockSignOutRepository.disconnect());
+    verifyNoMoreInteractions(mockSignOutRepository);
+  });
 }

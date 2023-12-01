@@ -12,12 +12,21 @@ void main() {
     mockSignOutRepository = MockSignOutRepository();
   });
 
-  test('Shoudl disconnect the user from Firebase Auth.', () async {
+  test('Should disconnect the user from Firebase Auth.', () async {
     when(() => mockSignOutRepository.signOut())
         .thenAnswer((_) => Future.value(null));
 
     await mockSignOutRepository.signOut();
 
     verify(() => mockSignOutRepository.signOut());
+  });
+
+  test('Should disconnect the user from GoogleSignIn.', () async {
+    when(() => mockSignOutRepository.disconnect())
+        .thenAnswer((_) => Future.value(null));
+
+    await mockSignOutRepository.disconnect();
+
+    verify(() => mockSignOutRepository.disconnect());
   });
 }

@@ -31,6 +31,8 @@ class HomePage extends StatelessWidget {
               child: const Text("SignOut"),
               onPressed: () {
                 homeStore.signOut();
+                homeStore.disconnect();
+                Modular.to.pushReplacementNamed("/signin/");
               },
             ),
           ],

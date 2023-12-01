@@ -17,7 +17,10 @@ abstract class SignInState with Store {
   String? errorMessage;
 
   @observable
-  bool isLoading = false;
+  bool isLoadingByEmail = false;
+
+  @observable
+  bool isLoadingByGoogle = false;
 
   @observable
   bool isShowPassword = false;
@@ -66,37 +69,39 @@ abstract class SignInState with Store {
     required String email,
     required String password,
   }) async {
-    isLoading = true;
+    isLoadingByEmail = true;
     errorMessage = null;
-    Future.delayed(const Duration(seconds: 1)).whenComplete(() async {
+    Future.delayed(const Duration(seconds: 3)).whenComplete(() async {
       try {
         await _authStore
             .signInWithEmailAndPassword(email: email, password: password)
             .then((user) {
-          if (user != null) isLoading = false;
+          if (user != null) isLoadingByEmail = false;
           Modular.to.pushReplacementNamed('/home');
         });
       } on ServerException catch (error) {
         errorMessage = error.message;
       } finally {
-        isLoading = false;
+        isLoadingByEmail = false;
       }
     });
   }
 
   /// /// Return a User after Sign In by GoogleSignIn.
   Future<void> signWithGoogleLogin() async {
-    isLoading = true;
+    isLoadingByGoogle = true;
     errorMessage = null;
-    try {
-      await _authStore.signInWithgoogleSignIn().then((user) async {
-        if (user != null) isLoading = false;
-        Modular.to.pushReplacementNamed('/home');
-      });
-    } on ServerException catch (error) {
-      errorMessage = error.message;
-    } finally {
-      isLoading = false;
-    }
+    Future.delayed(const Duration(seconds: 3)).whenComplete(() async {
+      try {
+        await _authStore.signInWithgoogleSignIn().then((user) async {
+          if (user != null) isLoadingByGoogle = false;
+          Modular.to.pushReplacementNamed('/home');
+        });
+      } on ServerException catch (error) {
+        errorMessage = error.message;
+      } finally {
+        isLoadingByGoogle = false;
+      }
+    });
   }
 }
