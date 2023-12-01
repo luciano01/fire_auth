@@ -183,7 +183,7 @@ class _SignInPageState extends State<SignInPage> {
                       );
                     },
                     icon: Icon(
-                      signInStore.isShowPassword
+                      !signInStore.isShowPassword
                           ? Icons.visibility_off_outlined
                           : Icons.visibility_outlined,
                       color: Colors.grey.shade600,
@@ -198,7 +198,7 @@ class _SignInPageState extends State<SignInPage> {
                       ? signInStore.validatePassword()
                       : null,
                 ),
-                obscureText: signInStore.isShowPassword,
+                obscureText: !signInStore.isShowPassword,
                 onChanged: signInStore.updatePassword,
               );
             }),
