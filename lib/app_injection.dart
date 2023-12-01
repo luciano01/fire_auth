@@ -40,6 +40,7 @@ class AppInjections extends Module {
     i.add<SignOutDataSource>(
       () => SignOutDataSourceImpl(
         firebaseAuth: i.get<FirebaseAuth>(),
+        googleSignIn: i.get<GoogleSignIn>(),
       ),
     );
     i.add<SignUpDataSource>(

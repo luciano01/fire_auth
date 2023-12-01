@@ -1,4 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 
 abstract class SignOutDataSource {
   /// Disconnect user from Firebase Auth.
@@ -7,12 +8,17 @@ abstract class SignOutDataSource {
 
 class SignOutDataSourceImpl implements SignOutDataSource {
   final FirebaseAuth _firebaseAuth;
+  final GoogleSignIn _googleSignIn;
 
-  SignOutDataSourceImpl({required FirebaseAuth firebaseAuth})
-      : _firebaseAuth = firebaseAuth;
+  SignOutDataSourceImpl({
+    required FirebaseAuth firebaseAuth,
+    required GoogleSignIn googleSignIn,
+  })  : _firebaseAuth = firebaseAuth,
+        _googleSignIn = googleSignIn;
 
   @override
   Future<void> signOut() async {
-    return await _firebaseAuth.signOut();
+    await _googleSignIn.disconnect();
+    await _firebaseAuth.signOut();
   }
 }
