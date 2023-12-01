@@ -1,14 +1,56 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
+import 'package:mobx/mobx.dart';
 
 import '../../presentation.dart';
 
-class SignInPage extends StatelessWidget {
+class SignInPage extends StatefulWidget {
   const SignInPage({super.key});
 
   @override
+  State<SignInPage> createState() => _SignInPageState();
+}
+
+class _SignInPageState extends State<SignInPage> {
+  final signInStore = Modular.get<SignInStore>();
+
+  @override
+  void initState() {
+    reaction((_) => signInStore.errorMessage, (hasError) {
+      if (hasError != null) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            duration: const Duration(seconds: 3),
+            behavior: SnackBarBehavior.floating,
+            backgroundColor: Colors.red.shade600,
+            content: Row(
+              children: [
+                const Icon(
+                  Icons.error_outline,
+                  color: Colors.white,
+                ),
+                const SizedBox(width: 10),
+                Expanded(child: Text(signInStore.errorMessage!)),
+              ],
+            ),
+            action: SnackBarAction(
+              label: 'Try Again',
+              textColor: Colors.white,
+              onPressed: () {
+                ScaffoldMessenger.of(context).hideCurrentSnackBar();
+              },
+            ),
+          ),
+        );
+      }
+    });
+
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    Modular.get<SignInStore>();
     return Scaffold(
       backgroundColor: Colors.grey.shade50,
       appBar: AppBar(
@@ -56,50 +98,9 @@ class SignInPage extends StatelessWidget {
           vertical: 16,
         ),
         children: [
-          TextFormField(
-            keyboardType: TextInputType.emailAddress,
-            cursorColor: Colors.deepPurple.shade900,
-            style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                  fontWeight: FontWeight.normal,
-                  fontStyle: FontStyle.normal,
-                  color: Colors.grey.shade900,
-                ),
-            decoration: InputDecoration(
-              border: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(8),
-              ),
-              enabledBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(8),
-                borderSide: const BorderSide(
-                  color: Colors.transparent,
-                ),
-              ),
-              focusedBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(8),
-                borderSide: BorderSide(
-                  color: Colors.deepPurple.shade900,
-                ),
-              ),
-              filled: true,
-              fillColor: Colors.grey.shade200,
-              prefixIcon: Icon(
-                Icons.email_outlined,
-                color: Colors.grey.shade600,
-              ),
-              hintText: 'Email',
-              hintStyle: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                    fontWeight: FontWeight.normal,
-                    color: Colors.grey.shade600,
-                  ),
-            ),
-            onChanged: (value) {},
-          ),
-          Padding(
-            padding: const EdgeInsets.symmetric(
-              vertical: 16,
-            ),
-            child: TextFormField(
-              keyboardType: TextInputType.visiblePassword,
+          Observer(builder: (_) {
+            return TextFormField(
+              keyboardType: TextInputType.emailAddress,
               cursorColor: Colors.deepPurple.shade900,
               style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                     fontWeight: FontWeight.normal,
@@ -125,60 +126,134 @@ class SignInPage extends StatelessWidget {
                 filled: true,
                 fillColor: Colors.grey.shade200,
                 prefixIcon: Icon(
-                  Icons.password_outlined,
+                  Icons.email_outlined,
                   color: Colors.grey.shade600,
                 ),
-                suffixIcon: IconButton(
-                  onPressed: () {},
-                  icon: Icon(
-                    Icons.visibility_off_outlined,
-                    color: Colors.grey.shade600,
-                  ),
-                ),
-                hintText: 'Password',
+                hintText: 'Email',
                 hintStyle: Theme.of(context).textTheme.bodyMedium?.copyWith(
                       fontWeight: FontWeight.normal,
                       color: Colors.grey.shade600,
                     ),
+                errorText: signInStore.email.isNotEmpty
+                    ? signInStore.validateEmail()
+                    : null,
               ),
-              obscureText: true,
-              onChanged: (value) {},
+              onChanged: signInStore.updateEmail,
+            );
+          }),
+          Padding(
+            padding: const EdgeInsets.symmetric(
+              vertical: 16,
             ),
+            child: Observer(builder: (_) {
+              return TextFormField(
+                keyboardType: TextInputType.visiblePassword,
+                cursorColor: Colors.deepPurple.shade900,
+                style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                      fontWeight: FontWeight.normal,
+                      fontStyle: FontStyle.normal,
+                      color: Colors.grey.shade900,
+                    ),
+                decoration: InputDecoration(
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(8),
+                  ),
+                  enabledBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(8),
+                    borderSide: const BorderSide(
+                      color: Colors.transparent,
+                    ),
+                  ),
+                  focusedBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(8),
+                    borderSide: BorderSide(
+                      color: Colors.deepPurple.shade900,
+                    ),
+                  ),
+                  filled: true,
+                  fillColor: Colors.grey.shade200,
+                  prefixIcon: Icon(
+                    Icons.password_outlined,
+                    color: Colors.grey.shade600,
+                  ),
+                  suffixIcon: IconButton(
+                    onPressed: () {
+                      signInStore.updateIsShowPassword(
+                        !signInStore.isShowPassword,
+                      );
+                    },
+                    icon: Icon(
+                      signInStore.isShowPassword
+                          ? Icons.visibility_off_outlined
+                          : Icons.visibility_outlined,
+                      color: Colors.grey.shade600,
+                    ),
+                  ),
+                  hintText: 'Password',
+                  hintStyle: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                        fontWeight: FontWeight.normal,
+                        color: Colors.grey.shade600,
+                      ),
+                  errorText: signInStore.password.isNotEmpty
+                      ? signInStore.validatePassword()
+                      : null,
+                ),
+                obscureText: signInStore.isShowPassword,
+                onChanged: signInStore.updatePassword,
+              );
+            }),
           ),
           Padding(
             padding: const EdgeInsets.symmetric(
               vertical: 16,
             ),
-            child: ElevatedButton(
-              style: ButtonStyle(
-                backgroundColor: MaterialStateProperty.resolveWith<Color>(
-                  (Set<MaterialState> states) {
-                    if (states.contains(MaterialState.pressed)) {
+            child: Observer(builder: (_) {
+              return ElevatedButton(
+                style: ButtonStyle(
+                  backgroundColor: MaterialStateProperty.resolveWith<Color>(
+                    (Set<MaterialState> states) {
+                      if (states.contains(MaterialState.pressed)) {
+                        return Colors.deepPurple.shade200;
+                      } else if (states.contains(MaterialState.disabled)) {
+                        return Colors.grey.shade400;
+                      }
                       return Colors.deepPurple.shade200;
-                    } else if (states.contains(MaterialState.disabled)) {
-                      return Colors.grey.shade400;
-                    }
-                    return Colors.deepPurple.shade200;
-                  },
-                ),
-                shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                  RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(8),
+                    },
+                  ),
+                  shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                    RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(8),
+                    ),
+                  ),
+                  fixedSize: MaterialStateProperty.all<Size>(
+                    const Size(double.infinity, 48),
                   ),
                 ),
-                fixedSize: MaterialStateProperty.all<Size>(
-                  const Size(double.infinity, 48),
-                ),
-              ),
-              child: Text(
-                "Continue",
-                style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                      fontWeight: FontWeight.normal,
-                      color: Colors.grey.shade900,
+                onPressed: signInStore.isValid
+                    ? () {
+                        signInStore.signInWithEmailAndPassword(
+                          email: signInStore.email,
+                          password: signInStore.password,
+                        );
+                      }
+                    : null,
+                child: Observer(builder: (_) {
+                  return Visibility(
+                    visible: !signInStore.isLoading,
+                    replacement: const Center(
+                      child: CircularProgressIndicator(),
                     ),
-              ),
-              onPressed: () {},
-            ),
+                    child: Text(
+                      "Continue",
+                      style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                            fontWeight: FontWeight.normal,
+                            color: Colors.grey.shade900,
+                          ),
+                    ),
+                  );
+                }),
+              );
+            }),
           ),
           Padding(
             padding: const EdgeInsets.symmetric(
@@ -247,7 +322,9 @@ class SignInPage extends StatelessWidget {
                 ),
               ],
             ),
-            onPressed: () {},
+            onPressed: () {
+              signInStore.signWithGoogleLogin();
+            },
           ),
         ],
       ),

@@ -49,6 +49,12 @@ abstract class AuthState with Store {
     return user;
   }
 
+  /// Return a User after Sign In by GoogleSignIn.
+  Future<User?> signInWithgoogleSignIn() async {
+    user = await _signInUseCase.googleSignIn();
+    return user;
+  }
+
   /// Create an Account by Email and Password, and return a Firebase User.
   Future<User?> createUserWithEmailAndPassword({
     required String email,
