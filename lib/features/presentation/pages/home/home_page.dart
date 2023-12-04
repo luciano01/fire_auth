@@ -9,32 +9,39 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final HomeStore homeStore = Modular.get<HomeStore>();
-
+    final homeStore = Modular.get<HomeStore>();
     return Scaffold(
+      backgroundColor: Colors.grey.shade50,
       appBar: AppBar(
+        backgroundColor: Colors.grey.shade50,
         title: const Text('Home'),
+        actions: [
+          IconButton(
+            icon: const Icon(
+              Icons.logout_outlined,
+            ),
+            onPressed: () => homeStore.signOut(),
+          ),
+        ],
       ),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Observer(builder: (_) {
-              return Column(
-                children: [
-                  Text(homeStore.userEmail),
-                  Text(homeStore.userUid),
-                ],
+              return Visibility(
+                visible: !homeStore.isLoading,
+                replacement: const Center(
+                  child: CircularProgressIndicator(),
+                ),
+                child: Column(
+                  children: [
+                    Text(homeStore.userEmail),
+                    Text(homeStore.userUid),
+                  ],
+                ),
               );
             }),
-            ElevatedButton(
-              child: const Text("SignOut"),
-              onPressed: () {
-                homeStore.signOut();
-                homeStore.disconnect();
-                Modular.to.pushReplacementNamed("/signin/");
-              },
-            ),
           ],
         ),
       ),
