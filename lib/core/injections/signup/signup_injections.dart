@@ -6,6 +6,11 @@ class SignUpInjections extends Module {
   @override
   void binds(Injector i) {
     /// Stores injections.
+    i.add<SignUpStore>(
+      () => SignUpStore(
+        appStore: i.get<AuthStore>(),
+      ),
+    );
   }
 
   @override
