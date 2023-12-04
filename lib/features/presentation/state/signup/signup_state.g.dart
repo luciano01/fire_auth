@@ -48,6 +48,22 @@ mixin _$SignUpStore on SignUpState, Store {
     });
   }
 
+  late final _$isLoadingByGoogleAtom =
+      Atom(name: 'SignUpState.isLoadingByGoogle', context: context);
+
+  @override
+  bool get isLoadingByGoogle {
+    _$isLoadingByGoogleAtom.reportRead();
+    return super.isLoadingByGoogle;
+  }
+
+  @override
+  set isLoadingByGoogle(bool value) {
+    _$isLoadingByGoogleAtom.reportWrite(value, super.isLoadingByGoogle, () {
+      super.isLoadingByGoogle = value;
+    });
+  }
+
   late final _$emailAtom = Atom(name: 'SignUpState.email', context: context);
 
   @override
@@ -146,6 +162,7 @@ mixin _$SignUpStore on SignUpState, Store {
     return '''
 errorMessage: ${errorMessage},
 isLoadingByEmail: ${isLoadingByEmail},
+isLoadingByGoogle: ${isLoadingByGoogle},
 email: ${email},
 password: ${password},
 repeatPassword: ${repeatPassword},

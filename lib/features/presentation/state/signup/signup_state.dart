@@ -20,6 +20,9 @@ abstract class SignUpState with Store {
   bool isLoadingByEmail = false;
 
   @observable
+  bool isLoadingByGoogle = false;
+
+  @observable
   String email = '';
 
   @observable
@@ -97,21 +100,21 @@ abstract class SignUpState with Store {
   }
 
   /// /// Return a User after Sign Up by GoogleSignIn.
-  Future<void> signWithGoogleLogin() async {
-    // isLoadingByGoogle = true;
-    // errorMessage = null;
-    // Future.delayed(const Duration(seconds: 3)).whenComplete(() async {
-    //   try {
-    //     await _authStore.signInWithgoogleSignIn().then((user) async {
-    //       if (user != null) isLoadingByGoogle = false;
-    //       Modular.to.popUntil((route) => route.isFirst);
-    //       Modular.to.pushReplacementNamed('/home');
-    //     });
-    //   } on ServerException catch (error) {
-    //     errorMessage = error.message;
-    //   } finally {
-    //     isLoadingByGoogle = false;
-    //   }
-    // });
+  Future<void> signUpWithGoogleLogin() async {
+    isLoadingByGoogle = true;
+    errorMessage = null;
+    Future.delayed(const Duration(seconds: 3)).whenComplete(() async {
+      try {
+        await _authStore.signInWithgoogleSignIn().then((user) async {
+          if (user != null) isLoadingByGoogle = false;
+          Modular.to.popUntil((route) => route.isFirst);
+          Modular.to.pushReplacementNamed('/home');
+        });
+      } on ServerException catch (error) {
+        errorMessage = error.message;
+      } finally {
+        isLoadingByGoogle = false;
+      }
+    });
   }
 }

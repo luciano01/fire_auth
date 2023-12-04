@@ -291,40 +291,50 @@ class SignUpPage extends StatelessWidget {
               ),
             ),
           ),
-          OutlinedButton(
-            style: ButtonStyle(
-              shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(8),
+          Observer(builder: (_) {
+            return OutlinedButton(
+              style: ButtonStyle(
+                shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                  RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(8),
+                  ),
+                ),
+                side: MaterialStateProperty.all<BorderSide>(
+                  BorderSide(
+                    color: Colors.grey.shade400,
+                  ),
+                ),
+                fixedSize: MaterialStateProperty.all<Size>(
+                  const Size(double.infinity, 48),
                 ),
               ),
-              side: MaterialStateProperty.all<BorderSide>(
-                BorderSide(
-                  color: Colors.grey.shade400,
+              child: Visibility(
+                visible: !signUpStore.isLoadingByGoogle,
+                replacement: const Center(
+                  child: CircularProgressIndicator(),
+                ),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Image.asset(
+                      "lib/core/assets/googleg.png",
+                      width: 35,
+                    ),
+                    Text(
+                      "Sign in with Google",
+                      style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                            fontWeight: FontWeight.normal,
+                            color: Colors.grey.shade900,
+                          ),
+                    ),
+                  ],
                 ),
               ),
-              fixedSize: MaterialStateProperty.all<Size>(
-                const Size(double.infinity, 48),
-              ),
-            ),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Image.asset(
-                  "lib/core/assets/googleg.png",
-                  width: 35,
-                ),
-                Text(
-                  "Sign in with Google",
-                  style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                        fontWeight: FontWeight.normal,
-                        color: Colors.grey.shade900,
-                      ),
-                ),
-              ],
-            ),
-            onPressed: () {},
-          ),
+              onPressed: () {
+                signUpStore.signUpWithGoogleLogin();
+              },
+            );
+          }),
         ],
       ),
     );
