@@ -1,6 +1,10 @@
 # Fire Auth
-
 Implementing FirebaseAuth by Email and Password, and GoogleSignIn.
+
+## Screenshots
+<p float="left">
+  <img width="200" src="https://github.com/luciano01/fire_auth/blob/master/lib/core/assets/SignInPage.png"> <img width="200" src="https://github.com/luciano01/fire_auth/blob/master/lib/core/assets/SignInPageError.png"> <img width="200" src="https://github.com/luciano01/fire_auth/blob/master/lib/core/assets/SignUpPage.png"> <img width="200" src="https://github.com/luciano01/fire_auth/blob/master/lib/core/assets/HomePage.png">
+</p>
 
 ## For developers
 > To clone locally
