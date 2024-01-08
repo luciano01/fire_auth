@@ -1,35 +1,29 @@
 # Fire Auth
 Implementing FirebaseAuth by Email and Password, and GoogleSignIn.
 
-## Screenshots
-<p float="left">
-  <img width="200" src="https://github.com/luciano01/fire_auth/blob/master/lib/core/assets/SignInPage.png"> <img width="200" src="https://github.com/luciano01/fire_auth/blob/master/lib/core/assets/SignUpPage.png"> <img width="200" src="https://github.com/luciano01/fire_auth/blob/master/lib/core/assets/HomePage.png">
-</p>
+## Demo
+Soon...
 
 ## For developers
-> To clone locally
+Create a clone of the target repository:
 ```
 $ git clone git@github.com:luciano01/fire_auth.git
-$ cd fire_auth
 ```
-> WARNING: You will need to add the google-services.json file to the path android/app/
-
-> Open the project in an editor, if you use VS Code, follow this
+Enter the cloned project directory with the command:
+> Or the path to the cloned project folder.
 ```
 $ cd fire_auth
-$ code .
 ```
-
-> To run, follow this on terminal
+Open an Android emulator or connect your smartphone to your computer and execute the following commands:
 ```
 $ flutter clean
 $ flutter pub get
-$ flutter run --release
+$ flutter run
 ```
 
 ## Built with
-- [Dart programming language](https://dart.dev/)
-- [Flutter](https://flutter.dev/)
+- [Dart programming language](https://dart.dev/) Version 3.0.5
+- [Flutter](https://flutter.dev/) Version 3.10.5
 - [Clean Architecture](https://blog.cleancoder.com/uncle-bob/2012/08/13/the-clean-architecture.html)
 - [Flutter Modular](https://pub.dev/packages/flutter_modular)
 - [MobX](https://pub.dev/packages/mobx)
@@ -37,5 +31,6 @@ $ flutter run --release
 - [GoogleSignIn](https://pub.dev/packages/google_sign_in)
 - [Mocktail](https://pub.dev/packages/mocktail)
 
-## Author
-- ([Linkedin - Luciano Martins](https://br.linkedin.com/in/luciano01))
+## Developer and Author
+- Luciano Martins ([Linkedin](https://br.linkedin.com/in/luciano01))
+
