@@ -2,7 +2,11 @@
 Implementing FirebaseAuth by Email and Password, and GoogleSignIn.
 
 ## Demo
-Soon...
+https://github.com/luciano01/fire_auth/assets/28585974/a7ff7928-7da0-45e9-aa5b-27455ba63ced 
+
+https://github.com/luciano01/fire_auth/assets/28585974/9423487b-c1b3-42b2-b381-2e2b7b18bfdc 
+
+https://github.com/luciano01/fire_auth/assets/28585974/00d7df22-4e99-4440-8c78-c7f3db744fa2
 
 ## For developers
 Create a clone of the target repository:
